@@ -76,37 +76,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PostTableViewCell
         cell.setPostData(postArray[indexPath.row])
         
-        //セル内のいいねボタンのアクションをソースコードで設定する
+        //セル内のボタンのアクションをソースコードで設定する
         cell.likeButton.addTarget(self, action:#selector(handleButton(_:forEvent:)), for: .touchUpInside)
-        
-         //セル内のコメント入力ボタンのアクションをソースコードで設定する
-               cell.commentInputButton.addTarget(self, action:#selector(handlecommentButton(_:forEvent:)), for: .touchUpInside)
         
         return cell
     }
-    
-     // セル内のコメント入力ボタンがタップされた時に呼ばれるメソッド
-       @objc func handlecommentButton(_ sender: UIButton, forEvent event: UIEvent) {
-        
-         // タップされたセルのインデックスを求める
-               let touch = event.allTouches?.first
-               let point = touch!.location(in: self.tableView)
-               let indexPath = tableView.indexPathForRow(at: point)
-               
-               // 配列からタップされたインデックスのデータを取り出す
-               let postData = postArray[indexPath!.row]
-        
-        
-              
-        
-        //commentViewControllerにモーダル遷移
-        let commentViewController = self.storyboard?.instantiateViewController(withIdentifier: "comment") as! commentViewController
-        commentViewController.postData = postData
-        self.present(commentViewController, animated: true, completion: nil)
-        
-        
-    }
-        // セル内のいいねボタンがタップされた時に呼ばれるメソッド
+    // セル内のボタンがタップされた時に呼ばれるメソッド
     @objc func handleButton(_ sender: UIButton, forEvent event: UIEvent) {
         print("DEBUG_PRINT: likeボタンがタップされました。")
         
